@@ -1,17 +1,17 @@
-% Solving a linear NOCKIT\PMT with a single frequency
-% written by Guy 07.21
+% Solving a non-linear NOCKIT\PMT with a single frequency
+% written by Guy 08.21
 clearvars
 % add relevant folders to path:
-addpath(genpath('.\')); % adding subfolders of current folder (assuming current folder is nockit sim\linear solver)
+addpath(genpath('.\')); % adding subfolders of current folder (assuming current folder is nockit sim\non linear solver)
 %% config
 freq = 8.5e9;
-input_idx = 4;
-PMT2_flag = false; % set true for 2 traces network, false for 7 traces network
-input_pwr = -40; % in dbm
+input_idx = 1;
+PMT2_flag = true; % set true for 2 traces network, false for 7 traces network
+input_pwr = -50; % in dbm
 %input_pwr =  11.402714422492686; % in dBm. this value give voltage amplitude of 1 Volt
 iterations = 30; % for NL solution
 plot_iterations = true;
-network_plot=true;
+network_plots=true; % network plots that include also the couplers. 
 %% define graph
 if PMT2_flag
     nockit_params = get_nockit2_params();
@@ -63,7 +63,7 @@ else
 end
 
 %% plot network
-if network_plot
+if network_plots
 
 coordinates = get_nockit_coordinates(G,nockit_params);
 
