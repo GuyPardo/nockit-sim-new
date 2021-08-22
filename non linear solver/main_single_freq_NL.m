@@ -5,8 +5,8 @@ clearvars
 addpath(genpath('.\')); % adding subfolders of current folder (assuming current folder is nockit sim\non linear solver)
 %% config
 freq = 8.5e9;
-input_idx = 1;
-PMT2_flag = true; % set true for 2 traces network, false for 7 traces network
+input_idx = 4;
+PMT2_flag = false; % set true for 2 traces network, false for 7 traces network
 input_pwr = -50; % in dbm
 %input_pwr =  11.402714422492686; % in dBm. this value give voltage amplitude of 1 Volt
 iterations = 30; % for NL solution
