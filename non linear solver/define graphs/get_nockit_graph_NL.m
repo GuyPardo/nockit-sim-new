@@ -1,4 +1,4 @@
-function [G, derived_params] = get_nockit_graph_NL(nockit_params, input_pwr)
+function [G, derived_params] = get_nockit_graph_NL(nockit_params, sig_amp)
 %constructs a graph G according to nockit_params.
 %   nockit_params should be a struct with fields
 %           N,M,L0,d,t,W,W_c,H,gap_c (optional), input_idx
@@ -36,9 +36,9 @@ end
 Cc = Cc*(1+1i*loss_tan);
 C = C*(1+1i*loss_tan);
 
-Y0 = sqrt(C/L);
+%Y0 = sqrt(C/L);
 
-sig_amp = sqrt(2/real(Y0)*10^((input_pwr/10) - 3)); % in Volts . factor of 2 is becuase the power is assumed to be RMS
+
 
 
 Ic = sqrt(2)*60e-6*(t/6e-9)*(W/2.3e-6); % % from mikita measurement

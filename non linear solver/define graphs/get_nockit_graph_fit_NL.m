@@ -1,5 +1,5 @@
 
-function [G, derived] = get_nockit_graph_fit_NL(nockit_params,x, input_pwr)
+function [G, derived] = get_nockit_graph_fit_NL(nockit_params,x, sig_amp)
 %construct a graph G based on nockit_params nodified according to vector 
 % X   = [t,W,Wc,H,lam2]; see fitting sction in general readme.
 % derived is a struct with derived parameters (e.g. v_ph, v_ph_c. etc.)
@@ -17,7 +17,7 @@ nockit_params_new.H = nockit_params.H*x(4); % thickness of dielectric
 %nockit_params_new.gap_c = nockit_params.gap_c*x(5); % for coplanar couplers, width of the gap between trace and ground.
 nockit_params_new.input_idx =nockit_params.input_idx;
 nockit_params_new.loss_tan = nockit_params.loss_tan;
-[G, derived] = get_nockit_graph_NL(nockit_params_new, input_pwr);
+[G, derived] = get_nockit_graph_NL(nockit_params_new, sig_amp);
 
  lam = x(5); %inductance factor
  
