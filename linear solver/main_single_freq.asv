@@ -29,7 +29,7 @@ graph_data = process_graph(G);
 %% read solution 
 [t,r] = read_nockit_solution(nockit_params, G, t_edges,r_edges);
 [x, V, I, power_flow] = nockit_calculate_physical_quantuties(nockit_params, derived, freq, t,r);
-input_power = derived.Y0/2; % for normalization by the input power
+input_power = real*derived.Y0/2; % for normalization by the input power
 %% plotting
 if ~PMT2_flag
     figure(901); clf;
@@ -53,4 +53,5 @@ else
 end
 
 
-%%
+
+

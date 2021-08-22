@@ -9,5 +9,5 @@ nockit_params.W=2.3e-6; % width of primary and secondary transmission lines
 nockit_params.t=8.5e-9; % thickness of WSi (sputtered)
 nockit_params.H=35e-9; % height of dielectric (say, Si - evaporated)
 nockit_params.W_c=200e-9; % width of coupling line
-
+nockit_params.loss_tan=2e-4; % dielectric loss
 end

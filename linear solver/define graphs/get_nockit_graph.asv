@@ -16,7 +16,7 @@ t = nockit_params.t;
 W = nockit_params.W;
 W_c = nockit_params.W_c;
 H = nockit_params.H;
-loss_tan = nockit_params.loss_tan;
+loss_tan = nockit_params.
 input_idx = nockit_params.input_idx;
 
 if coplanar_couplers
@@ -33,10 +33,7 @@ else
 end
 
 % build graph
-Y0 = Y0*sqrt(1+1i*loss_tan);
-Yc = Yc*sqrt(1+1i*loss_tan);
-v_ph = v_ph/sqrt(1+1i*loss_tan);
-v_ph_c = v_ph_c/sqrt(1+1i*loss_tan);
+
 % define graph: define an array of nodes with M rows and N+2 columns. the
 % nodes are numbered such that nodes 1:M are the first column, M+1:2*M are
 % the socond column  etc.

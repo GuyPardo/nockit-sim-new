@@ -30,7 +30,7 @@ The specific values for X in the main scripts are a result of fitting the experi
 
 solving nockit network with deifferent parameters:
 You'll have to define your own struct nockit_params with fields:  
-      N,M,L0,d,t,W,W_c,H,gap_c (optional), input_idx
+      N,M,L0,d,t,W,W_c,H,gap_c (optional),loss_tan, input_idx
 and then contiue from step 1b
 
 ----------------------------------------------------------
