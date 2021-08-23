@@ -25,8 +25,6 @@ end
  [t,r] = solve_graph_NL(graph_data, freq);
  
  % loop on iterations
- diff_all = zeros(1,iterations);
- sum_all = zeros(1,iterations);
  for i=1:iterations   
    
 
@@ -51,6 +49,16 @@ end
  diff_r = r-r_previous;
  diff_t = t-t_previous;
  
+ if plot_iterations
+%      figure(54)
+%     colororder(jet(iterations))
+%     subplot(2,1,1)
+%      plot(Iin)
+%      hold on
+%      subplot(2,1,2)
+%      plot(Iout)
+%      hold on
+ end
  
  diff_all(i) = sum(diff_r) + sum(diff_t);
  sum_all(i) = sum(r) + sum(t); 
