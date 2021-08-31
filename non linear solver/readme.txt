@@ -1,18 +1,18 @@
 This is the August 2021 version of the non-linear NOCKIT simulation.
-the  "main" script: main_single_freq.m and works in three steps:
+the  "main" script: main_single_freq_NL.m works in three steps:
 (1) define a graph object representing the network, (2) solve for the graph , and finally (3) read solution and plot.
  in the following I will describe in more detail each of these stages. 
 
 step 1: constructing the graph:
 	a. loading the designed geometrical parameters into a struct named nockit_params
-	b. using the fucntion get_nockit_graph_fit to create the digraph object G. that includes all the relevant information of the problem, including boundary conditions.
-	c. The function get_nockit_graph_fit accepts as two arguments. one is the struct nockit_paramns, and the other is a vector X of length 5 that defines how to change the parameters according to a fitting proccess.
-	    I explain more about the fitting process later on. 
-	d .the fucntion get_nockit_graph_fit also returns a struct called derived, that stores the derived parameters like traces\couplers admittance etc.
+	b. using the fucntion get_nockit_graph_fit_NL to create the digraph object G. that includes all the relevant information of the problem, including boundary conditions.
+	c. The function get_nockit_graph_fit_NL accepts three arguments: one is the struct nockit_params, the second is a vector X of length 5 that defines how to change the parameters according to a fitting proccess.
+	  (  I explain more about the fitting process later on). the third is the input signal amplitude (in volts).
+	d .the fucntion get_nockit_graph_fit_NL also returns a struct called derived, that stores the derived parameters like traces\couplers admittance etc.
 
 
 step 2: solving:
-	a.  the function process_graph_NL extracts all the relevant information from G and stores it in a struct graph_data. This is important for the frequency scans to reduce the runtime as matlab reads information from the struct much faster thn
+	a.  the function process_graph_NL extracts all the relevant information from G and stores it in a struct graph_data. This is important for the frequency scans etc to reduce the runtime as matlab reads information from the struct much faster then from the digraph object
 	b. the function solve_graph_NL recives the struct graph_data as an input and returns the *linear* solutions t_edges and r_edges. both are complex vectors of length G.numedges.
 	c. the function solve_graph_NL_envelope runs the previous function several times (determined by the input variable "iterations"), and iteratively solves the non-linear problem.
 	    the input boolean "plot_iterations" decides whether to plot convergence plots.
@@ -43,7 +43,7 @@ The way to do it is to define a matalb digraph object with edge properties:
     % Len - length of the edge
     % L - inductance per unit length of the edge
     % C- capacitance per unit length of the edge
-    % Ic - critical current of the edge
+    % Ic - critical current (non-linear scale) of the edge
     % BCval: see below
     % BC - boundary condition for the edge  according the convention:
 	% 1 - set t to 0

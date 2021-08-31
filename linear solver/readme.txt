@@ -6,13 +6,13 @@ the two "main" scripts: main_single_freq.m and main_freq_scan.m work in three st
 step 1: constructing the graph:
 	a. loading the designed geometrical parameters into a struct named nockit_params
 	b. using the fucntion get_nockit_graph_fit to create the digraph object G. that includes all the relevant information of the problem, including boundary conditions.
-	c. The function get_nockit_graph_fit accepts as two arguments. one is the struct nockit_paramns, and the other is a vector X of length 5 that defines how to change the parameters according to a fitting proccess.
+	c. The function get_nockit_graph_fit accepts as two arguments. one is the struct nockit_params, and the other is a vector X of length 5 that defines how to change the parameters according to a fitting proccess.
 	    I explain more about the fitting process later on. 
 	d .the fucntion get_nockit_graph_fit also returns a struct called derived, that stores the derived parameters like traces\couplers admittance etc.
 
 
 step 2: solving:
-	a.  the function process_graph extracts all the relevant information from G and stores it in a struct graph_data. This is important for the frequency scans to reduce the runtime as matlab reads information from the struct much faster thn
+	a.  the function process_graph extracts all the relevant information from G and stores it in a struct graph_data. This is important for the frequency scans to reduce the runtime as matlab reads information from the struct much faster then from the digraph object G.
 	b. the function solve_graph recives the struct graph_data as an input and returns the solutions t_edges and r_edges. both are complex vectors of length G.numedges.
 
 step 3: reading the solution:
