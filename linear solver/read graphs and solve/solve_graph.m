@@ -151,8 +151,9 @@ sum_in =  sum(abs(t_edges(end_edges_out)).^2) + sum(abs(r_edges(end_edges_in)).^
 sum_out =  sum(abs(r_edges(end_edges_out)).^2) + sum(abs(t_edges(end_edges_in)).^2); 
  cond =abs(sum_in-sum_out);
  if cond>1e-13
-     warning('energy conservation condition does not hold:')
-     cond
+     warning_string = sprintf('energy conservation condition does not hold: (if losses are included then this is OK). Total tranmission loss (in units of volts^2): %g', cond);
+     warning('energy:conserve',warning_string)
+    %cond
  end
 
 

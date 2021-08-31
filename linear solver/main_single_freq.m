@@ -5,19 +5,21 @@ clearvars
 addpath(genpath('.\')); % adding subfolders of current folder (assuming current folder is nockit sim\linear solver)
 %% config
 freq = 6e9;
-input_idx = 4;
-PMT2_flag = false; % set true for 2 traces network, false for 7 traces network
-
+input_idx = 1;
+PMT2_flag = true; % boolean. set true for 2 traces network, false for 7 traces network
+loss_flag = true; % boolean. decide whether to include dielectric loss. 
 %% define graph
 if PMT2_flag
     nockit_params = get_nockit2_params();
     nockit_params.input_idx = input_idx;
+    nockit_params.loss_tan = nockit_params.loss_tan*loss_flag; % make loss_tan=zero if loss_flag is off
     X= [0.8218    1.1714    1.5979    0.5225    0.3187]; % 07.21 fit.  X  = [t,W,Wc,H,lam2]; see general readme.
     % construct_graph
     [G, derived] = get_nockit_graph_fit(nockit_params,X);
 else
     nockit_params = get_nockit6_params();
-    nockit_params.input_idx = input_idx;
+    nockit_params.input_idx = input_idx; 
+    nockit_params.loss_tan = nockit_params.loss_tan*loss_flag; % make loss_tan=zero if loss_flag is off
     X = [1.0866    0.8745    0.4216    1.5621    0.3312]; % 07.21 fit.  X  = [t,W,Wc,H,lam2]; see general readme.
     % construct_graph
     [G, derived] = get_nockit_graph_fit(nockit_params,X);

@@ -1,34 +1,43 @@
 %  freqency scan for  linear NOCKIT\PMT 
 % written by Guy 07.21
 clearvars
+close all
 % add relevant folders to path:
 addpath(genpath('.\')); % adding subfolders of current folder (assuming current folder is nockit sim\linear solver)
 %% config
 frequency = linspace(3,9,201)*1e9;
-input_idx = 1;
-PMT2_flag = true; % set true for 2 traces network, false for 7 traces network
+input_idx = 4;
+PMT2_flag = false; % set true for 2 traces network, false for 7 traces network
+loss_flag = true; % boolean. decide whether to include dielectric loss. 
+compare_w_experiment = true; % set true to import the transmission measurement data and plot it against the simulation
 
+if loss_flag
+     warning('off', 'energy:conserve')
+else
+    warning('on', 'energy:conserve')
+end
 %% define graph
 if PMT2_flag
     nockit_params = get_nockit2_params();
     nockit_params.input_idx = input_idx;
+    nockit_params.loss_tan = nockit_params.loss_tan*loss_flag; % make loss_tan=zero if loss_flag is off
     X= [0.8218    1.1714    1.5979    0.5225    0.3187]; % 07.21 fit.  X  = [t,W,Wc,H,lam2]; see general readme.
     % construct_graph
     [G, derived] = get_nockit_graph_fit(nockit_params,X);
 else
     nockit_params = get_nockit6_params();
     nockit_params.input_idx = input_idx;
+    
     X = [1.0866    0.8745    0.4216    1.5621    0.3312]; % 07.21 fit.  X  = [t,W,Wc,H,lam2]; see general readme.
     % construct_graph
     [G, derived] = get_nockit_graph_fit(nockit_params,X);
 end
 
-
+    graph_data = process_graph(G);
 %% loop on frequencies
 trans  =zeros(nockit_params.M, length(frequency));
 ref  =zeros(nockit_params.M, length(frequency));
 for i = 1:length(frequency)
-    graph_data = process_graph(G);
     [t_edges, r_edges] = solve_graph(graph_data, frequency(i));
     % read solution 
     [t,r] = read_nockit_solution(nockit_params, G, t_edges,r_edges);
@@ -40,13 +49,14 @@ trans_dB = 20*log10(abs(trans));
 
 
 %% plot and compare to experimental data
-compare_w_experiment = true; % set true to import the transmission measurement data and plot it against the simulation
+
+
 fz=15;
 
 
 if compare_w_experiment
 
-    cc = colororder();
+    cc = colororder;
     if PMT2_flag
         load NOCKIT5_2traces_data.mat
   
