@@ -5,8 +5,8 @@ clearvars
 addpath(genpath('.\')); % adding subfolders of current folder (assuming current folder is nockit sim\linear solver)
 %% config
 freq = 6e9;
-input_idx = 1;
-PMT2_flag = true; % boolean. set true for 2 traces network, false for 7 traces network
+input_idx = 4;
+PMT2_flag = false; % boolean. set true for 2 traces network, false for 7 traces network
 loss_flag = true; % boolean. decide whether to include dielectric loss. 
 %% define graph
 if PMT2_flag
