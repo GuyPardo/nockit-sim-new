@@ -4,12 +4,12 @@ clearvars
 % add relevant folders to path:
 addpath(genpath('.\')); % adding subfolders of current folder (assuming current folder is nockit sim\non linear solver)
 %% config
-freq = 8.5e9;
+freq = 6e9;
 input_idx = 4;
 PMT2_flag = false; % set true for 2 traces network, false for 7 traces network
-input_pwr = -46; % in dbm
+input_pwr = -42; % in dbm
 % input_pwr =  11.402714422492686; % in dBm. this value give input voltage amplitude of 1 Volt
-iterations = 40; % for iterative NL solution
+iterations = 21; % for iterative NL solution
 plot_iterations = true; % set to true to look at the graph and check convergence. (automatic convergence check is NOT implemented yet.)
 network_plots=true; % network plots that include also the couplers. 
 %% define graph

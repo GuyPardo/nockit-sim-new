@@ -1,9 +1,11 @@
 % this is not a simulation, but a script that plots the tight-binding-like
 % analytical solution for 2PMT. see my thesis for explanation.
 % Guy. 08.21.
-
+%clearvars
+ 
 parms = get_nockit2_params();
 parms.input_idx = 1; 
+parms.loss_tan = 0; % for losless case.
  X= [0.8218    1.1714    1.5979    0.5225    0.3187];
 [G, derived] = get_nockit_graph_fit(parms, X);
 freq = linspace(3,9,401)*1e9;

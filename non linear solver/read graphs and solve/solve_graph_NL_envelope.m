@@ -36,7 +36,26 @@ end
  I_avr = real(Y_arr.*(t.*exp(1i*k_arr.*0.5.*Len_arr)  - r.*exp(-1i*k_arr.*0.5.*Len_arr)));
  
  % correct inductance:
- graph_data.L_arr = L_arr.*(1+(I_avr./I_star_arr).^2);
+%  graph_data.L_arr = L_arr.*(1+(I_avr./I_star_arr).^2);
+ 
+ % correct inductance acording to https://iopscience.iop.org/article/10.1088/0957-4484/21/44/445202
+ I_norm = abs(I_avr./Ic_arr);
+ 
+ L_ratio = zeros(size(I_norm)); 
+ 
+ for idx = 1:length(I_norm)
+    if I_norm(idx)>=1
+        x=0.3;
+    else
+     fun = @(x) 1.897*exp(-3*pi*x/8)*sqrt(x)*(pi/2 - 2*x/3) - I_norm(idx);
+    
+        x = fzero(fun,[0,0.3]);
+    end
+   
+    L_ratio(idx)  = exp(pi*x/4);
+ end
+ 
+ graph_data.L_arr = L_arr.*L_ratio;
  
  % correct v_ph, Y and k:   
  v_ph_arr = 1./sqrt(graph_data.L_arr.*C_arr);
